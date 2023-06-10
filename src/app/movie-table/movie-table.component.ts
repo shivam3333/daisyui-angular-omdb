@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MovieService } from '../services/movie.service'; // Import your data service
+
 const APIKEY = '638472b7';
 
 @Component({
@@ -18,20 +20,31 @@ export class MovieTableComponent implements OnInit {
     currentPage: 1,
     totalItems: 0
   };
-  searchMovie!: String ;
-  searchMovieName: String ='movie';
+  searchMovie!: string ;
+  searchMovieName: string ='movie';
   errorMessage!: String;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private movieService: MovieService) {
+    const state:any = this.router.getCurrentNavigation();
+    const currentState = state.extras.state;
+    console.log('currentState', currentState)
+    this.searchMovieName = currentState ? currentState.movieName : 'movie';
+    if(this.searchMovieName)
+      this.searchMovie = this.searchMovieName;
+    console.log("movie Name === ",  this.searchMovieName);
+  }
 
   ngOnInit() {
     this.fetchMovies();
   }
 
   fetchMovies() {
+    let searchquery = `&s=${this.searchMovieName}`;
+    if(!this.searchMovieName)
+      searchquery = `&s=movie`;
     this.http
       .get(
-        `https://www.omdbapi.com/?s=${this.searchMovieName}&apikey=${APIKEY}&page=${this.config.currentPage}`
+        `https://www.omdbapi.com/?apikey=${APIKEY}&page=${this.config.currentPage}${searchquery}`
       )
       .subscribe((response: any) => {
         console.log('response === ', response);
@@ -61,7 +74,7 @@ export class MovieTableComponent implements OnInit {
     this.fetchMovies();
   }
 
-  applyFilter(search: String) {
+  applyFilter(search: string) {
     this.searchMovieName = search;
     this.fetchMovies();
   }
@@ -75,6 +88,7 @@ export class MovieTableComponent implements OnInit {
   goToDetails(id: string) {
     // Navigate to the details page and store the ID in the router state
     console.log('id', id);
-    this.router.navigate(['/movie-details']);
+    this.movieService.setSelectedMovie(this.searchMovie);
+    this.router.navigate(['/movie-details'], { state: { id: id } });
   }
 }

@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class MovieService {
   private selectedId!: number;
+  private selectedMovie!: string;
 
   setSelectedId(id: number) {
     this.selectedId = id;
@@ -13,5 +14,13 @@ export class DataService {
 
   getSelectedId(): number {
     return this.selectedId;
+  }
+
+  setSelectedMovie(name: string) {
+    this.selectedMovie = name;
+  }
+
+  getSelectedMovie(): string {
+    return this.selectedMovie;
   }
 }

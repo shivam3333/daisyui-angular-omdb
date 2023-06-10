@@ -1,1 +1,26 @@
-<p>movie-details works!</p>
+
+<button class="btn btn-secondary mr-2" (click)="goBack()">Back</button>
+<div class="card shadow-2xl w-80 m-4">
+  <figure>
+    <img [src]="movieDetail?.Poster"/>
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">DaisyUI Card</h2>
+    <p> <b>Actors:</b> {{movieDetail?.Actors}}</p>
+    <p> <b>Writer:</b> {{movieDetail?.Writer}}</p>
+    <p> <b>Year:</b> {{movieDetail?.Year}}</p>
+    <p> <b>Awards:</b> {{movieDetail?.Awards}}</p>
+    <p> <b>BoxOffice:</b> {{movieDetail?.BoxOffice}}</p>
+    <p> <b>Country:</b> {{movieDetail?.Country}}</p>
+    <p> <b>Director:</b> {{movieDetail?.Director}}</p>
+    <p> <b>Genre:</b> {{movieDetail?.Genre}}</p>
+    <p> <b>Language:</b> {{movieDetail?.Language}}</p>
+    <p> <b>Plot:</b> {{movieDetail?.Plot}}</p>
+    <p> <b>Production:</b> {{movieDetail?.Production}}</p>
+  </div>
+</div>
+<div class="alert alert-error" *ngIf="errorMessage">
+  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+  <span>{{errorMessage}}</span>
+
+</div>
