@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 const APIKEY = '638472b7';
 
 @Component({
@@ -17,7 +18,11 @@ export class MovieTableComponent implements OnInit {
     currentPage: 1,
     totalItems: 0
   };
-  constructor(private http: HttpClient) {}
+  searchMovie!: String ;
+  searchMovieName: String ='movie';
+  errorMessage!: String;
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.fetchMovies();
@@ -26,13 +31,20 @@ export class MovieTableComponent implements OnInit {
   fetchMovies() {
     this.http
       .get(
-        `https://www.omdbapi.com/?s=movie&apikey=${APIKEY}&page=${this.config.currentPage}`
+        `https://www.omdbapi.com/?s=${this.searchMovieName}&apikey=${APIKEY}&page=${this.config.currentPage}`
       )
       .subscribe((response: any) => {
-        this.movies = response.Search;
-        this.config.totalItems = response.totalResults;
-        this.sortByReleaseDate();
-        console.log('response.Search', response);
+        console.log('response === ', response);
+        if(response.Response == 'True'){
+          this.movies = response.Search;
+          this.config.totalItems = response.totalResults;
+          this.sortByReleaseDate();
+          
+        } else{
+          this.movies=[];
+          this.errorMessage = response.Error;
+        }
+        
       });
   }
 
@@ -49,8 +61,20 @@ export class MovieTableComponent implements OnInit {
     this.fetchMovies();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(search: String) {
+    this.searchMovieName = search;
     this.fetchMovies();
+  }
+
+  clearFilter(){
+    this.searchMovie ='';
+    this.searchMovieName = 'movie';
+    this.fetchMovies();
+  }
+
+  goToDetails(id: string) {
+    // Navigate to the details page and store the ID in the router state
+    console.log('id', id);
+    this.router.navigate(['/movie-details']);
   }
 }
