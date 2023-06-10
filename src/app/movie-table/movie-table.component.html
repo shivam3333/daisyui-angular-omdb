@@ -1,6 +1,6 @@
 
 <div class="overflow-x-auto">
-  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+  <input type="text" placeholder="Search movie here" class="input input-bordered w-full max-w-xs" />
 
   <table class="table">
     <!-- head -->
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <!-- row 1 -->
-      <tr *ngFor="let movie of movies">
+      <tr *ngFor="let movie of movies | paginate: config">
         <td>
           <div class="flex items-center space-x-3">
             <div class="avatar">
@@ -39,5 +39,5 @@
     </tbody>
     <!-- foot -->
   </table>
-  <pagination-controls (pageChange)="page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+  <pagination-controls (pageChange)="onPageChange((page = $event))" [id]="'omdb'" previousLabel="Previous" nextLabel="Next"></pagination-controls>
 </div>
