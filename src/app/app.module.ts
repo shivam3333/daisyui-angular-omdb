@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './product-list/product-list.component';
 import { MovieTableComponent } from './movie-table/movie-table.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
@@ -19,7 +18,7 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
     NgxPaginationModule,
     RouterModule.forRoot([{ path: '', component: MovieTableComponent }, { path: 'movie-details', component: MovieDetailsComponent }]),
   ],
-  declarations: [AppComponent, ProductListComponent, MovieTableComponent, MovieDetailsComponent],
+  declarations: [AppComponent, MovieTableComponent, MovieDetailsComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
