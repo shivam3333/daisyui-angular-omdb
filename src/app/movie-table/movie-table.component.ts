@@ -48,4 +48,9 @@ export class MovieTableComponent implements OnInit {
     this.config.currentPage = page;
     this.fetchMovies();
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.fetchMovies();
+  }
 }
