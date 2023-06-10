@@ -13,30 +13,28 @@ export class MovieDetailsComponent implements OnInit {
 
 
   id!: string;
-  movieDetail!: {}
+  movieDetail!: any
   errorMessage!: string;
+  isSearching!: Boolean;
 
   constructor(private http: HttpClient, private router: Router, private movieService: MovieService ) {
-    // Retrieve the ID from the router state
     const state:any = this.router.getCurrentNavigation();
     const currentState = state.extras.state;
-    console.log("state",  currentState);
     this.id = currentState ? currentState.id : null;
-    console.log("movie Id === ",  this.id);
   }
 
   ngOnInit(): void {
+    this.isSearching = true;
     this.http
       .get(
         `https://www.omdbapi.com/?apikey=${APIKEY}&i=${this.id}`
       )
       .subscribe((response: any) => {
-        console.log('response === ', response);
+        this.isSearching = false;
         if(response.Response == 'True'){
-          this.movieDetail = response.Search;
-          
+          this.movieDetail = response;
         } else{
-          this.movieDetail={};
+          this.movieDetail= {};
           this.errorMessage = response.Error;
         }
         
@@ -49,5 +47,4 @@ export class MovieDetailsComponent implements OnInit {
     console.log('movieName', movieName)
     this.router.navigate(['/'], { state: { movieName: movieName } });
   }
-
 }

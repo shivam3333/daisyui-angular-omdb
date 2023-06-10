@@ -27,11 +27,9 @@ export class MovieTableComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router, private movieService: MovieService) {
     const state:any = this.router.getCurrentNavigation();
     const currentState = state.extras.state;
-    console.log('currentState', currentState)
-    this.searchMovieName = currentState ? currentState.movieName : 'movie';
+    this.searchMovieName = currentState ? currentState.movieName : '';
     if(this.searchMovieName)
       this.searchMovie = this.searchMovieName;
-    console.log("movie Name === ",  this.searchMovieName);
   }
 
   ngOnInit() {
