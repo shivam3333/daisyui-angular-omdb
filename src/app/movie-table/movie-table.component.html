@@ -1,0 +1,43 @@
+
+<div class="overflow-x-auto">
+  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Genre</th>
+        <th>Rating</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr *ngFor="let movie of movies">
+        <td>
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <img [src]=movie.Poster />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">{{ movie.Title }}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          {{ movie.Year }}
+        </td>
+        <td>{{ movie.Type }}</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+        </th>
+      </tr>
+    </tbody>
+    <!-- foot -->
+  </table>
+  <pagination-controls (pageChange)="page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+</div>

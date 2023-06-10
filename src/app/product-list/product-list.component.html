@@ -1,0 +1,30 @@
+<h2>Products</h2>
+<div class="overflow-x-auto">
+<table class="table">
+  <!-- head -->
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let product of products | paginate: { itemsPerPage: 10, currentPage: page }">
+      <th>1</th>
+      <td>{{product.name}}</td>
+      <td>{{product.price}}</td>
+      <td>{{product.description}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<pagination-controls (pageChange)="page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://angular.io/license
+-->
