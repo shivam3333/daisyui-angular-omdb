@@ -73,11 +73,13 @@ export class MovieTableComponent implements OnInit {
   }
 
   applyFilter(search: string) {
+    this.config.currentPage = 1;
     this.searchMovieName = search;
     this.fetchMovies();
   }
 
   clearFilter(){
+    this.config.currentPage = 1;
     this.searchMovie ='';
     this.searchMovieName = 'movie';
     this.fetchMovies();
