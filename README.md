@@ -1,3 +1,7 @@
 # daisyui-angular-omdb
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/daisyui-angular-frqxbb)
+Run the APP:
+npm i && npm run dev
+
+Check the browser:
+http://localhost:4200
